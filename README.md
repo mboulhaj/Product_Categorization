@@ -20,3 +20,6 @@ Amazon UK product categorization
 115232 : Toys & Games (595312)
 
 96763 : ??
+
+# How to run
+python test.py
