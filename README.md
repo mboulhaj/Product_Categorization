@@ -4,6 +4,7 @@ Amazon UK product categorization
 
 # Categories
 115212 : Beauty
+
 115214 : Grocery
 115211 : Baby Products
 115227 : Pet Supplies
