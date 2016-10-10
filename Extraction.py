@@ -9,11 +9,13 @@ import re
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn import tree
 import numpy as np
 from sklearn.naive_bayes import GaussianNB
-import sklearn
 import pickle
+import operator
+import sklearn
+from sklearn import tree
+
 
 # dict Vectorizer
 vec = DictVectorizer()
@@ -33,7 +35,7 @@ gnb = GaussianNB()
 url ='http://kaioshin.fastupcommerce.com/api/v1'
 token='Token token=f7eb0628b18c00a81ab098152bb676eb'
 nb_pages=655
-nb_outputfiles=10
+nb_outputfiles=20
 model =''
 
 
@@ -53,7 +55,7 @@ def get_products(url, token):
             Class=product['category']['parents'][-1]
             yield vector, Class
         i+=1
-        break
+
 
 # preprocess textual fields
 def pre_process_text(text):
@@ -131,6 +133,12 @@ def build_model():
 
     while(a<nb_outputfiles):
         filenames.append(open('vectors'+str(a),'w'))
+        for feature in sorted(cont_vect1.vocabulary_.items(), key=operator.itemgetter(1)):
+            filenames[a].write(str(feature[0])+',')
+        for feature in sorted(cont_vect2.vocabulary_.items(), key=operator.itemgetter(1)):
+            filenames[a].write(str(feature[0])+',')
+        filenames[a].write('\n')
+
         a+=1
 
     inc=0       # if inc== 1000, change file
@@ -170,9 +178,6 @@ def build_model():
     model = gnb.fit(vectors, Class)
 
     return model
-
-
-
 
 
 
