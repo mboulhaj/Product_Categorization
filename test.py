@@ -1,5 +1,3 @@
-
-
 import xlrd
 import numpy as np
 from Preprocessing import pre_process_text
